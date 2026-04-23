@@ -28,22 +28,22 @@ pipeline {
                     npm test
                 '''
             }
-
-            stage('E2E') {
-                steps {
-                    sh '''
-                        npm install -g serve
-                        serve -s build
-                        npx playwright test
-                    '''
-                }
-            }
         }
 
-        post {
-            always {
-                junit 'test-results/junit.xml'
+        stage('E2E') {
+            steps {
+                sh '''
+                    npm install -g serve
+                    serve -s build
+                    npx playwright test
+                '''
             }
+        }
+    }
+
+    post {
+        always {
+            junit 'test-results/junit.xml'
         }
     }
 }
