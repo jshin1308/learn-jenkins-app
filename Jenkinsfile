@@ -57,6 +57,18 @@ pipeline {
                 '''
             }
         }
+
+        stage('Prod E2E') {
+            environment {
+                CI_ENVIRONMENT_URL = 'https://fancy-lollipop-3a0c22.netlify.app'
+            }
+
+            steps {
+                sh '''
+                    npx playwright test --reporter=html
+                '''
+            }
+        }
     }
 
     post {
